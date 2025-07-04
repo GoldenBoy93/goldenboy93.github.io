@@ -4,4 +4,5 @@
 
 layout: default
 ---
-코딩일기 첫 페이지 입니다.
+Hello, World!
+Welcome to GoldenBoy Cording Dairy!
