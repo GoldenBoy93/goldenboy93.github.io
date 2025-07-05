@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+  <!-- _include에 있는 head.html를 가져오는데 사이트 상단 탭의 이름과 아이콘 정보임 -->
   {%- include head.html -%} 
 <body>
-{%- include nav.html -%} 
+    {%- include header.html -%}
 
-  {%- include header.html -%} 
+    <img src="{{ '/assets/Images/GoldenBoyFavicon.ico' | prepend: site.baseurl }}" width="10%">
+
 
   <main class=”site-main”> 
     {{content}}
   </main>
 
-  {%- include footer.html -%} 
+  <!-- _include에 있는 footer.html -->
+  {%- include footer.html -%}
 </body>
 </html>

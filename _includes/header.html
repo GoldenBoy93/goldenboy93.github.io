@@ -1,3 +1,31 @@
 <header class="site-header" role="banner">
-   GoldenBoy Coding Diary
+
+   <style>
+      /* 사이트 전체 배경색 */
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #414141;
+      }
+      .wrapper {
+        width: 100%;
+        margin: auto;
+        overflow: hidden;
+      }
+      header {
+        background: default;
+        padding: 1px 50px;
+        text-align: left;
+      }
+      header h2 a {
+        color: #ffffff;
+      }
+   </style>
+
+   <script src="{{ '/assets/Images/GoldenBoyFavicon.ico' | prepend: site.baseurl }}"></script>
+
+   <!-- weblog 최상단 이름이면서 눌렀을때 홈으로 가게 만든것(아래 쓴 링크로 연결) -->
+   <!-- 수식 앞뒤에 h+숫자가 글자크기 숫자가 클수록 작아짐 -->
+   <h2><a href="https://goldenboy93.github.io/">GoldenBoy's Coding Diary</a></h2>
 </header>

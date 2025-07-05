@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <title>{% if page.title %}{{ page.title }}{% else %}GoldenBoy's Coding Diary{% endif %}</title>
+
+    <!-- 태그 수집 -->
+    {% assign rawtags = "" %}
+    {% for post in site.posts %}
+      {% assign ttags = post.tags | join:'|' | append:'|' %}
+      {% assign rawtags = rawtags | append:ttags %}
+    {% endfor %}
+    {% assign rawtags = rawtags | split:'|' | sort %}
+
+    {% assign all_tags = "" %}
+    {% for tag in rawtags %}
+      {% if tag != "" %}
+        {% if all_tags == "" %}
+          {% assign all_tags = tag | split:'|' %}
+        {% endif %}
+        {% unless all_tags contains tag %}
+          {% assign all_tags = all_tags | join:'|' | append:'|' | append:tag | split:'|' %}
+        {% endunless %}
+      {% endif %}
+    {% endfor %}
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #414141;
+      }
+      .wrapper {
+        width: 100%;
+        margin: auto;
+        overflow: hidden;
+      }
+      header {
+        background: #414c53;
+        color: #ffffff;
+        padding: 1px 50px;
+        text-align: left;
+      }
+      header h2 a {
+        color: #ffffff;
+        text-decoration: none;
+      }
+      section {
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 0px;
+      }
+      .draft {
+        background-color: #ffcccc; /* 연한 빨간색 배경 */
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <!-- weblog 최상단 이름이면서 눌렀을때 홈으로 가게 만든것(아래 쓴 링크로 연결) -->
+        <!-- 수식 앞뒤에 h+숫자가 글자크기 숫자가 클수록 작아짐 -->
+        <h2><a href="https://goldenboy93.github.io/">GoldenBoy's Coding Diary</a></h2>
+
+        {% if page.start or page.tag %}
+          <!-- 시작페이지에 나타나는 태그 목록 이름-->
+          <p>Tag list</p>
+          <div style="margin-top: -10px; margin-bottom: 20px; margin-right: 30px; padding: 10px; padding-left: 10px; border-radius: 7px; background-color: default;">
+            {% for tag in all_tags %}
+              <a href="/tag/{{ tag }}"><nobr>{{ tag }}</nobr>&nbsp;</a>
+            {% endfor %}
+          </div>
+        {% else %}
+          <p>{{ page.title }} - INDEX</p>
+          <div style="margin-top: -10px; margin-bottom: 20px; margin-right: 30px; padding: 10px; padding-left: 10px; border-radius: 7px; background-color: #ffeeff;">
+            {% include toc.html html=content %}
+          </div>
+        {% endif %}
+      </header>
+
+      <section {%if page.tags contains "draft" %} class="draft"{% endif %}>
+      {% if page.tags and page.title | split:' ' | first != "Tag:" %}
+        <span style="margin-bottom: 20px; color: purple">[
+          {% for tag in page.tags %}
+            {% capture tag_name %}{{ tag }}{% endcapture %}
+            <a href="/tag/{{ tag_name }}"><nobr>{{ tag_name }}</nobr>&nbsp;</a>
+          {% endfor %}
+        ]</span>
+      {% endif %}
+
+      {% if page.title %}
+      <h1>{{ page.title }}</h1>
+      {% endif %}
+
+      {% if page.start %}
+        {% for post in site.posts %}
+        <p class="view">
+          <a href="{{ post.url }}">{{ post.title }}</a>
+        </p>
+        {% endfor %}
+      {% else %}
+        {{ content }}
+      {% endif %}
+
+      </section>
+    </div>
+    <script src="/assets/js/scale.fix.js"></script>
+
+  </body>
+</html>
